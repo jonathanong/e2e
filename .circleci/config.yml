@@ -5,6 +5,8 @@ test-defaults: &test-defaults
       environment:
         NPM_CONFIG_LOGLEVEL: error # make npm commands less noisy
         JOBS: max # https://gist.github.com/ralphtheninja/f7c45bdee00784b41fed
+    - image: selenium/standalone-chrome
+    - image: selenium/standalone-firefox
 
 restore_cache_keys: &restore_cache_keys
   keys:
