@@ -23,6 +23,9 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore_cache_keys
+      # https://github.com/circleci/circleci-images/issues/125
+      - run: sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+      - run: sudo tar xf geckodriver-v0.19.1-linux64.tar.gz -C /usr/local/bin
       - run: npm install
       - run: npm run eslint:ci
       - run: npm run test -- --maxWorkers 2
@@ -34,9 +37,12 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore_cache_keys
+      # https://github.com/circleci/circleci-images/issues/125
+      - run: sudo wget https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz
+      - run: sudo tar xf geckodriver-v0.19.1-linux64.tar.gz -C /usr/local/bin
       - run: npm install
-      - run: ./bin/run.js --concurrency 2 'tests/**/*.js'
-      - run: ./bin/run.js 'tests-failing/**/*.js' || echo 'FORCED TO PASS'
+      - run: ./bin/run.js --local-concurrency 2 --sauce-concurrency 1 'tests/**/*.js'
+      - run: ./bin/run.js --local-concurrency 2 --sauce-concurrency 1 'tests-failing/**/*.js' || echo 'FORCED TO PASS'
       - save_cache: *save_cache
 
 workflows:
