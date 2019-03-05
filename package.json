@@ -1,6 +1,6 @@
 {
   "name": "@dollarshaveclub/e2e",
-  "version": "2.1.0-rc.5",
+  "version": "3.0.0",
   "description": "Make End-to-End Testing Great for Once",
   "main": "lib",
   "scripts": {
